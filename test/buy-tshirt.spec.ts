@@ -33,13 +33,14 @@ describe('Buy a t-shirt', () => {
 
   describe('Bougth the t-shirt', () => {
     it('then should add the t-shirt on the cart', async () => {
-    await browser.wait(EC.elementToBeClickable(menuContentPage.getGoToShirtMenu()), 10000);
-    await menuContentPage.goToTShirtMenu();
-    await browser.wait(EC.elementToBeClickable(productListPage.getAddToCart()), 5000);
-    await productListPage.clicAddToCart();
-    await browser.wait(EC.visibilityOf(productAddedModalPage.getToCheckout()), 15000);
-    await productAddedModalPage.clickToCheckout();
-    await summaryStepPage.clickProceedToCheckout();
+      await browser.wait(EC.elementToBeClickable(menuContentPage.getGoToShirtMenu()), 10000);
+      await menuContentPage.goToTShirtMenu();
+      await browser.wait(EC.elementToBeClickable(productListPage.getAddToCart()), 5000);
+      await productListPage.clicAddToCart();
+      await browser.wait(EC.visibilityOf(productAddedModalPage.getToCheckout()), 15000);
+      await productAddedModalPage.clickToCheckout();
+      await summaryStepPage.clickProceedToCheckout();
+    });
   });
 
   describe('Login on the page', () => {
