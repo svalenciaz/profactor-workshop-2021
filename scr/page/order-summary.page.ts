@@ -10,4 +10,8 @@ export class OrderSummaryPage {
   public async readConfirmation(): Promise<string> {
     return this.confirmation.getText();
   }
+
+  public getConfirmation(): ElementFinder {
+    return this.confirmation;
+  }
 }

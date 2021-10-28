@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { browser, ExpectedConditions } from 'protractor';
 import {
   MenuContentPage,
   ProductListPage,
@@ -23,7 +23,8 @@ describe('Buy a t-shirt', () => {
   const paymentStepPage: PaymentStepPage = new PaymentStepPage();
   const bankPaymentPage: BankPaymentPage = new BankPaymentPage();
   const orderSummaryPage: OrderSummaryPage = new OrderSummaryPage();
-  // const EC = ExpectedConditions;
+  const EC = ExpectedConditions;
+
 
   describe('Open browser window', () => {
     it('then should be loaded the automation practice page', async () => {
@@ -33,16 +34,13 @@ describe('Buy a t-shirt', () => {
 
   describe('Bougth the t-shirt', () => {
     it('then should add the t-shirt on the cart', async () => {
+      await browser.wait(EC.elementToBeClickable(menuContentPage.getGoToShirtMenu()), 10000);
       await menuContentPage.goToTShirtMenu();
-      // await browser.wait(EC.elementToBeClickable(productListPage.getAddToCart()), 20000);
+      await browser.wait(EC.elementToBeClickable(productListPage.getAddToCart()), 5000);
       await productListPage.clicAddToCart();
-
-      // falla
+      await browser.wait(EC.visibilityOf(productAddedModalPage.getToCheckout()), 15000);
       await productAddedModalPage.clickToCheckout();
-      // await browser.wait(EC.elementToBeClickable(productAddedModalPage.getToCheckout()), 20000);
-      // await browser.sleep(3000);
       await summaryStepPage.clickProceedToCheckout();
-      // await browser.wait(EC.elementToBeClickable(summaryStepPage.getProceedToCheckout()), 20000);
     });
   });
 
@@ -62,8 +60,9 @@ describe('Buy a t-shirt', () => {
 
   describe('Pay in the bank', () => {
     it('then should be confimed the buy order', async () => {
-      await paymentStepPage.clickPayByCheck();
+      await paymentStepPage.clickPayByBankWire();
       await bankPaymentPage.clickIConfirmMyOrder();
+      await browser.wait(EC.visibilityOf(orderSummaryPage.getConfirmation()), 5000);
       await expect(orderSummaryPage.readConfirmation())
         .toBe('Your order on My Store is complete.');
     });
