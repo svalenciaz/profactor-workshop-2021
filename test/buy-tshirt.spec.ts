@@ -25,6 +25,7 @@ describe('Buy a t-shirt', () => {
   const orderSummaryPage: OrderSummaryPage = new OrderSummaryPage();
   const EC = ExpectedConditions;
 
+
   describe('Open browser window', () => {
     it('then should be loaded the automation practice page', async () => {
       await browser.get('http://automationpractice.com/');
