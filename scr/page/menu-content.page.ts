@@ -10,4 +10,8 @@ export class MenuContentPage {
   public async goToTShirtMenu(): Promise<void> {
     await this.tShirtMenu.click();
   }
+
+  public getGoToShirtMenu(): ElementFinder {
+    return this.tShirtMenu;
+  }
 }
