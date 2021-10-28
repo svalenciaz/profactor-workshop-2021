@@ -38,7 +38,7 @@ describe('Buy a t-shirt', () => {
     await addressStepPage.clickProceedToCheckout();
     await shippingStepPage.clickTermsOfServiceCheckbox();
     await shippingStepPage.clickProceedToCheckout();
-    await paymentStepPage.clickPayByCheck();
+    await paymentStepPage.clickPayByBankWire();
     await bankPaymentPage.clickIConfirmMyOrder();
     await browser.wait(EC.visibilityOf(orderSummaryPage.getConfirmation()), 5000);
     await expect(orderSummaryPage.readConfirmation())
