@@ -171,4 +171,7 @@ $RECYCLE.BIN/
 # Typescript
 dist
 
+# Report-awesome
+reports/
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,node
