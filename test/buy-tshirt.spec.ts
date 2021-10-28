@@ -1,4 +1,4 @@
-import { browser } from 'protractor';
+import { browser, ExpectedConditions } from 'protractor';
 import {
   MenuContentPage,
   ProductListPage,
@@ -23,26 +23,24 @@ describe('Buy a t-shirt', () => {
   const paymentStepPage: PaymentStepPage = new PaymentStepPage();
   const bankPaymentPage: BankPaymentPage = new BankPaymentPage();
   const orderSummaryPage: OrderSummaryPage = new OrderSummaryPage();
-  // const EC = ExpectedConditions;
+  const EC = ExpectedConditions;
 
   it('then should be bought a t-shirt', async () => {
     await browser.get('http://automationpractice.com/');
+    await browser.wait(EC.elementToBeClickable(menuContentPage.getGoToShirtMenu()), 10000);
     await menuContentPage.goToTShirtMenu();
-    // await browser.wait(EC.elementToBeClickable(productListPage.getAddToCart()), 20000);
+    await browser.wait(EC.elementToBeClickable(productListPage.getAddToCart()), 5000);
     await productListPage.clicAddToCart();
-
-    // falla
+    await browser.wait(EC.visibilityOf(productAddedModalPage.getToCheckout()), 15000);
     await productAddedModalPage.clickToCheckout();
-    // await browser.wait(EC.elementToBeClickable(productAddedModalPage.getToCheckout()), 20000);
-    // await browser.sleep(3000);
     await summaryStepPage.clickProceedToCheckout();
-    // await browser.wait(EC.elementToBeClickable(summaryStepPage.getProceedToCheckout()), 20000);
     await signInStepPage.login('aperdomobo@gmail.com', 'WorkshopProtractor');
     await addressStepPage.clickProceedToCheckout();
     await shippingStepPage.clickTermsOfServiceCheckbox();
     await shippingStepPage.clickProceedToCheckout();
     await paymentStepPage.clickPayByCheck();
     await bankPaymentPage.clickIConfirmMyOrder();
+    await browser.wait(EC.visibilityOf(orderSummaryPage.getConfirmation()), 5000);
     await expect(orderSummaryPage.readConfirmation())
       .toBe('Your order on My Store is complete.');
   });
